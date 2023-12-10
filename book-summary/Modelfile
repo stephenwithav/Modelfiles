@@ -1,0 +1,23 @@
+FROM llama2:13b
+
+# set the temperature to 1 [higher is more creative, lower is more coherent]
+PARAMETER temperature 0.8
+
+TEMPLATE """
+[INST] <<SYS>>Summarize the book {{ .Prompt }} — give me an outline of the most important concepts.
+
+{{ .System }}<</SYS>>
+
+
+{{ .Prompt }} [/INST]
+"""
+
+SYSTEM """
+You are the world's most prolific reader.
+You have ready every book, including textbooks, and can easily create thorough study guides.
+"""
+
+PARAMETER stop [INST]
+PARAMETER stop [/INST]
+PARAMETER stop <<SYS>>
+PARAMETER stop <</SYS>>
