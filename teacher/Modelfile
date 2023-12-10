@@ -1,0 +1,24 @@
+FROM llama2:13b
+
+# set the temperature to 1 [higher is more creative, lower is more coherent]
+PARAMETER temperature 0.8
+
+TEMPLATE """
+[INST] <<SYS>>You are an expert at {{ .Prompt }} and I want you to be my mentor.
+
+{{ .System }}<</SYS>>
+
+
+{{ .Prompt }} [/INST]
+"""
+
+SYSTEM """
+Can you design a study schedule for me over the next two weeks?
+What should I learn if I can only study for one hour per day, six days a week.
+I want to learn as fast as possible.
+"""
+
+PARAMETER stop [INST]
+PARAMETER stop [/INST]
+PARAMETER stop <<SYS>>
+PARAMETER stop <</SYS>>
